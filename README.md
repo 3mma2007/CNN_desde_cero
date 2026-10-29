@@ -43,13 +43,6 @@ Capa densa (1352 → 10) + Softmax                    →  (1, 10) probabilidade
 - **Pérdida:** categorical cross entropy.
 - **Optimizador:** descenso de gradiente con mini-batches.
 
-## Estructura del proyecto
-
-| Archivo | Contenido |
-|---|---|
-| `CNN_desde_cero_para_clasificacion_MNIST.ipynb` | Notebook con todo el código, el entrenamiento y las visualizaciones |
-| `cnn_pesos.npz` | Pesos entrenados y el historial de pérdida (para no reentrenar) |
-
 ### Qué hay en el notebook
 
 1. Carga y preprocesamiento de MNIST (normalización a [0, 1], división 75 % / 25 % estratificada, one-hot de las etiquetas).
