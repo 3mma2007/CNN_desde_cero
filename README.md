@@ -85,7 +85,7 @@ El `cache` que devuelve `feed_forward` guarda lo que cada capa necesita en el ba
 
 ### Cambio al MLP original
 
-El método `back_propagation` del MLP ahora devuelve **tres** valores en lugar de dos: `dW`, `db` y `dx`, el gradiente respecto a la entrada de la capa densa. Ese `dx` es el que se le pasa hacia atrás a la parte convolucional. Si se usa el MLP por separado, hay que desempaquetar con `dW, db, _ = ...`.
+El método `back_propagation` del MLP ahora devuelve **tres** valores en lugar de dos: `dW`, `db` y `dx`, el gradiente respecto a la entrada de la capa densa. Ese `dx` es el que se le pasa hacia atrás a la parte convolucional. 
 
 ### Verificación
 
