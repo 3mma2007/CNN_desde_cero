@@ -43,7 +43,7 @@ Capa densa (1352 → 10) + Softmax                    →  (1, 10) probabilidade
 - **Pérdida:** categorical cross entropy.
 - **Optimizador:** descenso de gradiente con mini-batches.
 
-### Qué hay en el notebook
+## Qué hay en el notebook
 
 1. Carga y preprocesamiento de MNIST (normalización a [0, 1], división 75 % / 25 % estratificada, one-hot de las etiquetas).
 2. Funciones auxiliares: `softmax`, `cross_entropy`.
