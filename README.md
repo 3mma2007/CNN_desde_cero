@@ -87,9 +87,6 @@ El `cache` que devuelve `feed_forward` guarda lo que cada capa necesita en el ba
 
 El método `back_propagation` del MLP ahora devuelve **tres** valores en lugar de dos: `dW`, `db` y `dx`, el gradiente respecto a la entrada de la capa densa. Ese `dx` es el que se le pasa hacia atrás a la parte convolucional. 
 
-### Verificación
-
-Los gradientes se verificaron con **gradient check** (comparación con el gradiente numérico por diferencias centrales). Coinciden hasta unos 10 decimales en los filtros, los sesgos y la capa densa. Al verificar los sesgos hay que usar valores distintos de cero: con sesgos en 0 y el fondo negro de MNIST, muchas posiciones caen exactamente en el punto no derivable de la ReLU y el gradiente numérico no es comparable.
 
 ## Uso
 
@@ -131,14 +128,6 @@ cnn.mlp.biases[0] = datos["mlp_b"]
 hist = datos["loss"].tolist()
 ```
 
-### Predecir
-
-```python
-y_pred = cnn.predict(x_test[:100])                 # una predicción por imagen
-print(np.mean(y_pred == y_test[:100]))
-
-cnn.predict(x_test[5:6])                           # una sola imagen: usar x[i:i+1], no x[i]
-```
 
 ## Visualizaciones
 
@@ -148,17 +137,6 @@ El notebook genera:
 - Evolución de la pérdida por época.
 - Una figura resumen con la imagen, las probabilidades, la pérdida, los filtros aprendidos, el feature map, el activation map, el max pooling y el vector flatten.
 
-## Limitaciones
-
-- **Lenta.** La convolución y el pooling usan bucles de Python y cada imagen se procesa por separado (~0,1 s por imagen en entrenamiento y ~0,03 s en predicción). Evaluar el test completo tarda varios minutos.
-- **`padding` y `stride` no están implementados.** La convolución asume `padding=0` y `stride=1`. Si el tamaño de la salida de la convolución no es divisible entre `pool_size`, `d_pooling` rellena con ceros las filas y columnas descartadas.
-- **Una sola capa convolucional.** `d_conv2d` ya calcula `dx` (el gradiente respecto a la entrada) para poder apilar más capas, pero hoy no se usa.
-- **Sin regularización ni validación por época.** La pérdida que se imprime se calcula mientras los pesos cambian durante la época, por lo que es una aproximación.
-
-## Posibles mejoras
-
-1. Vectorizar la convolución con `sliding_window_view` y `einsum`, y el pooling con `reshape`.
-2. Procesar el lote completo de una vez, eliminando el bucle por imágenes.
 3. Entrenar con las 52.500 imágenes y evaluar sobre el test completo.
 4. Implementar `padding` y `stride`.
 5. Generalizar a varias capas convolucionales con una clase `ConvLayer` y una lista de capas.
